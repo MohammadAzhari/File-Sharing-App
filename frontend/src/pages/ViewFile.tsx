@@ -56,7 +56,9 @@ export default function ViewFilePage() {
           </div>
         </div>
         {/* middle */}
-        <FileCard file={uploadedFile} />
+        <div className="flex justify-center w-full">
+          <FileCard file={uploadedFile} />
+        </div>
       </div>
     </div>
   );

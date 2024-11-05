@@ -3,7 +3,7 @@ import { UploadedFile } from "../../types/UploadedFile";
 import api from "../../services/api";
 import { FaCopy, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getFileDownloadUrl } from "../../config/config";
+import FileCover from "../FileCover";
 
 export default function ListFiles() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
@@ -23,42 +23,7 @@ export default function ListFiles() {
         {uploadedFiles.length > 0 ? (
           uploadedFiles.map((file, index) => (
             <div key={index} className="card bg-base-100 shadow-xl">
-              {(() => {
-                const extension = file.name.split(".").pop()?.toLowerCase();
-                switch (extension) {
-                  case "mp4":
-                    return (
-                      <video controls>
-                        <source
-                          src={getFileDownloadUrl(file.name)}
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                      </video>
-                    );
-                  case "png":
-                  case "jpeg":
-                  case "jpg":
-                    return (
-                      <img
-                        src={getFileDownloadUrl(file.name)}
-                        alt="File Preview"
-                        className="max-h-[220px] object-cover"
-                      />
-                    );
-                  case "pdf":
-                    return (
-                      <embed
-                        src={getFileDownloadUrl(file.name)}
-                        type="application/pdf"
-                        width="100%"
-                        height="220px"
-                      />
-                    );
-                  default:
-                    return <p>Unsupported file type</p>;
-                }
-              })()}
+              <FileCover file={file} />
               <div className="card-body">
                 <h3 className="card-title">{file.tag}</h3>
                 <p>File size: {(file.size / 1024).toFixed(2)} KB</p>

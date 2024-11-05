@@ -1,10 +1,16 @@
 import { UploadedFile } from "../../types/UploadedFile";
 import { FaDownload } from "react-icons/fa";
 import { getFileDownloadUrl } from "../../config/config";
+import FileCover from "../FileCover";
 
 export default function FileCard(props: { file: UploadedFile }) {
   return (
-    <div className="card bg-base-100 shadow-xl p-5">
+    <div className="card bg-base-100 max-w-[500px] w-full shadow-xl p-5">
+      <div className="w-full flex justify-center">
+        <div className="max-w-[320px]">
+          <FileCover file={props.file} />
+        </div>
+      </div>
       <h2 className="card-title">{props.file.tag}</h2>
       <div className="card-body">
         <p>
