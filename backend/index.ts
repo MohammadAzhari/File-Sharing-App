@@ -4,6 +4,8 @@ import authRouter from "./controllers/auth.contoller";
 import { ServerError } from "./utils/serverError";
 import filesRouter from "./controllers/files.controller";
 import path from "path";
+import { homedir } from "os";
+import fs from "fs";
 
 const app = express();
 
@@ -13,7 +15,12 @@ app.use(cors());
 app.use("/api/auth", authRouter);
 app.use("/api/files", filesRouter);
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(homedir(), "uploads")));
+
+// create dir if not exist
+if (!fs.existsSync(path.join(homedir(), "uploads"))) {
+  fs.mkdirSync(path.join(homedir(), "uploads"));
+}
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err);

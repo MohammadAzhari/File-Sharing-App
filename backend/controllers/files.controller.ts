@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import filesDao from "../dao/files.dao";
 import { ServerError } from "../utils/serverError";
+import { homedir } from "os";
 
 const filesRouter = express.Router();
 
@@ -11,7 +12,7 @@ const filesRouter = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Set the destination folder where files will be saved
-    cb(null, "uploads/");
+    cb(null, path.join(homedir(), "uploads"));
   },
   filename: function (req, file, cb) {
     // Set the file name for the uploaded file
