@@ -15,12 +15,6 @@ export default function ListFiles() {
     fetchFiles();
   }, []);
 
-  const handleClickCopy = (filename: string) => {
-    navigator.clipboard.writeText(
-      `${window.location.protocol}//${window.location.host}/view/${filename}`
-    );
-  };
-
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">Your uploaded files</h2>
@@ -32,6 +26,15 @@ export default function ListFiles() {
                 <h3 className="card-title">{file.name}</h3>
                 <p>File size: {(file.size / 1024).toFixed(2)} KB</p>
                 <p>Total views: {file.totalViews}</p>
+                <span className="my-3 flex items-center flex-wrap">
+                  Share Link <FaCopy />
+                  <input
+                    type="text"
+                    value={`${window.location.protocol}//${window.location.host}/#/view/${file.name}`}
+                    readOnly
+                    className="input input-sm p-2 w-full"
+                  />
+                </span>
               </div>
               <div className="card-actions justify-end mb-4">
                 <Link
@@ -40,12 +43,6 @@ export default function ListFiles() {
                 >
                   View <FaEye />
                 </Link>
-                <button
-                  onClick={() => handleClickCopy(file.name)}
-                  className="btn btn-sm btn-secondary"
-                >
-                  Copy Link <FaCopy />{" "}
-                </button>
               </div>
             </div>
           ))
