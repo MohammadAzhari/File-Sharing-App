@@ -6,6 +6,7 @@ import filesRouter from "./controllers/files.controller";
 import path from "path";
 import { homedir } from "os";
 import fs from "fs";
+import https from "https";
 
 const app = express();
 
@@ -39,6 +40,16 @@ app.use("*", (req: Request, res: Response) => {
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-  console.log(`app is running on port ${PORT}`);
+const options = {
+  key: fs.readFileSync('private.key'),
+  cert: fs.readFileSync('certificate.crt'),
+  // Optionally, if you have a CA bundle:
+  // ca: fs.readFileSync('path/to/your/ca_bundle.crt')
+};
+
+https.createServer(options, app).listen(443, () => {
+  console.log('Secure server running on port 443');
 });
+//app.listen(PORT, () => {
+  //console.log(`app is running on port ${PORT}`);
+//});
