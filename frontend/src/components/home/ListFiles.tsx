@@ -43,7 +43,7 @@ export default function ListFiles() {
                       <img
                         src={getFileDownloadUrl(file.name)}
                         alt="File Preview"
-                        height={"220px"}
+                        className="max-h-[220px] object-cover"
                       />
                     );
                   case "pdf":
