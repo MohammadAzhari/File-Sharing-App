@@ -1,15 +1,22 @@
 import axios from "axios";
+import storage from "../utils/storage";
+
+const serverUrl = import.meta.env.API_URL || "http://localhost:4000";
 
 const http = axios.create({
-  baseURL: import.meta.env.API_URL || "http://localhost:4000",
+  baseURL: serverUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 http.interceptors.request.use((req) => {
-  req.headers['Authorization'] = localStorage.getItem("userId");
+  req.headers["Authorization"] = `Bearer ${storage.getToken()}`;
   return req;
 });
+
+export const getFileDownloadUrl = (filename: string) => {
+  return `${serverUrl}/uploads/${filename}`;
+};
 
 export default http;

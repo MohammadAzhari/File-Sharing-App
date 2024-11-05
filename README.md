@@ -37,7 +37,7 @@
 
 4. Run the migrations:
     ```bash
-   npx prisma migrate deploy
+   npx prisma migrate deploy && npx prisma generate
    ```
 
 5. Run the development server:
