@@ -32,6 +32,11 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
+app.use(express.static(path.join("..", "frontend", "dist")));
+app.use("*", (req: Request, res: Response) => {
+  res.sendFile(path.resolve("..", "frontend", "dist", "index.html"));
+});
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
