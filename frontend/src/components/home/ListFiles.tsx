@@ -23,7 +23,7 @@ export default function ListFiles() {
           uploadedFiles.map((file, index) => (
             <div key={index} className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h3 className="card-title">{file.name}</h3>
+                <h3 className="card-title">{file.tag}</h3>
                 <p>File size: {(file.size / 1024).toFixed(2)} KB</p>
                 <p>Total views: {file.totalViews}</p>
                 <span className="my-3 flex items-center flex-wrap">

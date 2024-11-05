@@ -19,6 +19,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     userId: number;
   };
 
+  (req as any).userId = userId; 
   res.locals.userId = userId;
   next();
 }

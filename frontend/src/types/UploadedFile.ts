@@ -7,4 +7,5 @@ export type UploadedFile = {
     username: string;
   };
   createdAt: string;
+  tag: string;
 };

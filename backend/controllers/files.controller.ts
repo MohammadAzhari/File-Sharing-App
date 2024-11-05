@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     // Set the file name for the uploaded file
     cb(
       null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      file.originalname + "_" + Date.now() + path.extname(file.originalname)
     );
   },
 });
@@ -28,17 +28,7 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10MB
   fileFilter: function (req, file, cb) {
-    const filetypes = /mp4|png/;
-    const extname = filetypes.test(
-      path.extname(file.originalname).toLowerCase()
-    );
-    const mimetype = filetypes.test(file.mimetype);
-
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new ServerError("Error: Images and videos only!", 400));
-    }
+    return cb(null, true);
   },
 });
 
@@ -50,15 +40,22 @@ filesRouter.post(
     try {
       const { userId } = res.locals;
       const file = req.file;
+      const tag = req.body.tag;
 
       if (!file) {
         throw new ServerError("No file uploaded", 400);
+      }
+
+      const isExist = await filesDao.getUserFileByTag(tag, userId);
+      if (isExist) {
+        throw new ServerError("Tag already exists", 400);
       }
 
       await filesDao.createFile({
         name: file.filename,
         size: file.size,
         userId: userId,
+        tag,
       });
 
       res.sendStatus(201);

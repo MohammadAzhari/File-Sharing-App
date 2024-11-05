@@ -1,12 +1,18 @@
 import prisma from "../config/prisma";
 
 const filesDao = {
-  createFile: async (file: { name: string; size: number; userId: number }) => {
+  createFile: async (file: {
+    name: string;
+    size: number;
+    userId: number;
+    tag: string;
+  }) => {
     return prisma.file.create({
       data: {
         name: file.name,
         size: file.size,
         userId: file.userId,
+        tag: file.tag,
       },
     });
   },
@@ -39,6 +45,15 @@ const filesDao = {
         totalViews: {
           increment: 1,
         },
+      },
+    });
+  },
+
+  getUserFileByTag: async (tag: string, userId: number) => {
+    return prisma.file.findFirst({
+      where: {
+        tag,
+        userId,
       },
     });
   },

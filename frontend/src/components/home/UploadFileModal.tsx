@@ -8,6 +8,7 @@ import api from "../../services/api";
 export default function UploadFileModal() {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File>();
+  const [tag, setTag] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ export default function UploadFileModal() {
     try {
       const formData = new FormData();
       formData.append("file", file!);
+      formData.append("tag", tag);
       await api.uploadFile(formData);
       toast.success("File uploaded successfully");
       navigate(0);
@@ -32,10 +34,23 @@ export default function UploadFileModal() {
         <h3 className="font-bold text-lg">Upload a new File!</h3>
         <div className="mt-5"></div>
         <p className="py-4">Press ESC key or click outside to close</p>
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">Tag</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Tag"
+            className="input input-bordered"
+            minLength={3}
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          />
+        </div>
         <div className="m-3">
           <Dropfile
             file={file}
-            accepedFormats={["mp4", "png"]}
+            accepedFormats={["mp4", "png", "jpeg", "pdf"]}
             onDrop={(file) => setFile(file)}
           />
         </div>
