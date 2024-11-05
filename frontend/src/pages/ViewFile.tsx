@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ListFiles from "../components/home/ListFiles";
 import UploadFileModal from "../components/home/UploadFileModal";
 import storage from "../utils/storage";
 import { toast } from "react-toastify";

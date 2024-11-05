@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dropfile from "../Dropfile";
 import { FaUpload } from "react-icons/fa";
 import api from "../../services/api";
