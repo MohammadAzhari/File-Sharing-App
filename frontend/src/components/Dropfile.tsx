@@ -47,7 +47,7 @@ export default function Dropfile({
         }}
       >
         {({ getRootProps, getInputProps }) => (
-          <section className="w-full h-[200px] rounded-xl ">
+          <section className="w-full h-[200px] rounded-xl z-10 relative">
             <div
               {...getRootProps()}
               className="h-full flex flex-col items-center justify-center"
@@ -87,7 +87,7 @@ export default function Dropfile({
                       </svg>
                     )}
                   </div>
-                  {file ? <p>{file?.name}</p> : <p>Drag And Drop File Here</p>}
+                  {file ? <p>{file?.name}</p> : <p>No File Selected</p>}
                 </div>
                 <div className="before:absolute before:content-[''] before:!z-0 before:left-0 before:top-[45%] before:w-full before:h-[1px] before:bg-gray-300 relative w-[160px]   text-center ">
                   <div className="px-1 bg-neutral text-gray-300 relative !z-50 inline-block">
