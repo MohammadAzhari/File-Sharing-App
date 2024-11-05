@@ -5,7 +5,7 @@ import { getFileDownloadUrl } from "../../config/config";
 export default function FileCard(props: { file: UploadedFile }) {
   return (
     <div className="card bg-base-100 shadow-xl p-5">
-      <h2 className="card-title">{props.file.name}</h2>
+      <h2 className="card-title">{props.file.tag}</h2>
       <div className="card-body">
         <p>
           <strong>Size:</strong> {(props.file.size / 1024).toFixed(2)} KB
