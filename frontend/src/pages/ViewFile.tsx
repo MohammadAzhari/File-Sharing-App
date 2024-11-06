@@ -7,6 +7,7 @@ import api from "../services/api";
 import { UploadedFile } from "../types/UploadedFile";
 import Loading from "../components/Loading";
 import FileCard from "../components/home/FileCard";
+import { getFileDownloadUrl } from "../config/config";
 
 export default function ViewFilePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,7 @@ export default function ViewFilePage() {
       try {
         const res = await api.getFile(filename!);
         setUploadedFile(res);
+        window.location.href = getFileDownloadUrl(filename!);
       } catch (error: any) {
         toast.error(error.message);
       } finally {
